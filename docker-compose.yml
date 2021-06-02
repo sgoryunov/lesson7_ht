@@ -5,14 +5,15 @@ services:
     volumes:
       - type: volume
         source: artifacts
-        target: /boxfuse-sample-java-war-hello/target/
+        target: /boxfuse-sample-java-war-hello/target/hello-1.0.war
 
   prod:
     image: tomcat:latest
     ports:
       - "8080:8080"
-    volumes_from:
-      - bld
-    command: [cp /boxfuse-sample-java-war-hello/target/hello-1.0.war /usr/local/tomcat/webapps/; catalina.sh run]
+    volumes:
+      - type: volume
+        source: artifacts
+        target: /usr/local/tomcat/webapps/hello-1.0.war
 volumes: 
   artifacts:
