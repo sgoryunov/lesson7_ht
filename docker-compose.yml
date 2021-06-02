@@ -1,0 +1,19 @@
+---
+version: '2'
+services:
+  bld:
+    build: build-image 
+    links:
+      - prod
+    volumes:
+      - ./hello-1.0.war:/boxfuse-sample-java-war-hello/target/hello-1.0.war
+
+  prod:
+    image: tomcat:latest
+    ports:
+      - "8080:8080"
+    links:
+      - bld
+    volumes:
+      - ./hello-1.0.war:/usr/local/tomcat/webapps/hello-1.0.war
+---
