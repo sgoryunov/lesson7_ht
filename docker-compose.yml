@@ -1,19 +1,18 @@
----
-version: '2'
+version: '3'
 services:
   bld:
     build: build-image 
-    links:
-      - prod
     volumes:
-      - ./hello-1.0.war:/boxfuse-sample-java-war-hello/target/hello-1.0.war
+      - type: volume
+        source: artifacts
+        target: /boxfuse-sample-java-war-hello/target/
 
   prod:
     image: tomcat:latest
     ports:
       - "8080:8080"
-    links:
+    volumes_from:
       - bld
-    volumes:
-      - ./hello-1.0.war:/usr/local/tomcat/webapps/hello-1.0.war
----
+    command: [cp /boxfuse-sample-java-war-hello/target/hello-1.0.war /usr/local/tomcat/webapps/; catalina.sh run]
+volumes: 
+  artifacts:
