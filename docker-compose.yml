@@ -11,6 +11,8 @@ services:
     image: tomcat:8.0-alpine
     ports:
       - "8080:8080"
+    depends_on: 
+      - bld
     volumes:
       - type: volume
         source: artifacts
