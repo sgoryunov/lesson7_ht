@@ -5,15 +5,15 @@ services:
     volumes:
       - type: volume
         source: artifacts
-        target: /boxfuse-sample-java-war-hello/target/hello-1.0.war
+        target: /boxfuse-sample-java-war-hello/target
 
   prod:
-    image: tomcat:latest
+    image: tomcat:8.0-alpine
     ports:
       - "8080:8080"
     volumes:
       - type: volume
         source: artifacts
-        target: /usr/local/tomcat/webapps/hello-1.0.war
+        target: /usr/local/tomcat/webapps
 volumes: 
   artifacts:
